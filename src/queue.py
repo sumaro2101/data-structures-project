@@ -1,8 +1,10 @@
 import json
+from typing import Any
+
 class Node:
     """Класс для узла очереди"""
 
-    def __init__(self, data, next_node):
+    def __init__(self, data: Any, next_node):
         """
         Конструктор класса Node
 
@@ -15,16 +17,22 @@ class Node:
 class Queue:
     """Класс для очереди"""
 
-    def __init__(self, head=None, tail=None):
+    def __init__(self, head: Any=None, tail: Any=None):
         self.head = head
         self.tail = tail
     
-    def enqueue(self, data):
+    
+    def enqueue(self, data: Any) -> None:
         """
         Метод для добавления элемента в очередь
 
+        Если голова None - элемент сохранить в голову
+        Если хвост None - элемент сохранить в хвост
+    
+        
         :param data: данные, которые будут добавлены в очередь
         """
+        
         if self.head is None:
             self.head = Node(data, None)
             return data
@@ -43,9 +51,13 @@ class Queue:
         self.tail = elem.next_node
         
 
-    def dequeue(self):
+    def dequeue(self) -> Any:
         """
         Метод для удаления элемента из очереди. Возвращает данные удаленного элемента
+        
+        Если хвост None - Голова None
+        Если следующий элемент Головы равен Хвосту - Хвост None
+
 
         :return: данные удаленного элемента
         """
@@ -71,17 +83,30 @@ class Queue:
                 self.tail = prev_item
                 self.tail.next_node = None
                 return item_return.data
-            
+     
+    @staticmethod      
+    def list_items(ent_elem) -> list:
+        """Создает список элементов списка
 
-    def __str__(self):
-        """Магический метод для строкового представления объекта"""
-        if self.head is None:
-            return ""
+        Returns:
+            list: Возращает список элементов
+        """    
+            
         result = []
-        elem = self.head
+        elem = ent_elem
+        
         while elem.next_node:
             result.append(elem.data)
             elem = elem.next_node
         result.append(elem.data)
         
-        return '\n'.join(result)
+        return result
+
+
+    def __str__(self) -> str:
+        """Магический метод для строкового представления объекта"""
+        
+        if self.head is None:
+            return ""
+        
+        return '\n'.join(self.list_items(self.head))

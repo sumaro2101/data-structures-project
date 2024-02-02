@@ -41,6 +41,16 @@ class TestQueue:
         assert queue.tail.data == "middle" and queue.head.next_node.next_node.data == "middle"
         
         
+    def test_gen_list(self, queue):
+        """Тест функции заполняющую список
+
+        Args:
+            queue (fixture): инициализированный класс очереди
+        """   
+             
+        assert queue.list_items(queue.head) == ['first', 'last', 'middle']
+        
+        
     def test_dequeue(self, queue):
         """Тест удаления элемента в полной очереди
 
@@ -72,3 +82,4 @@ class TestQueue:
         queue.dequeue()
         
         assert queue.head is None
+        
