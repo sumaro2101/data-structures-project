@@ -67,3 +67,27 @@ class TestLinListTwo:
         
         assert linked_list.head.data == {'id': 'test'}
         
+        
+    def test_lin_list_to_list(self, linked_list):
+        """Тест вывода списка элементов в виде списка
+
+        Args:
+            linked_list (fixture): инициализированный односвязный список
+        """  
+        
+        linked_list.insert_at_end({'id': 'test_two'})
+        linked_list.insert_beginning([1, 2, 3, 4])
+        linked_list.insert_beginning({'not_id': 10})
+        
+        assert linked_list.to_list() == [{'not_id': 10}, [1, 2, 3, 4], {'id': 'test'}, {'id': 'test_two'}]
+        
+        
+    def test_lin_list_searchID(self, linked_list):
+        """Тест поиска по ID
+
+        Args:
+            linked_list (fixture): инициализированный односвязный список
+        """ 
+        
+        assert linked_list.get_data_by_id('test') == {'id': 'test'}
+        
